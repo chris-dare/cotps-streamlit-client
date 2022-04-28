@@ -8,6 +8,7 @@ authors = ["Chris Dare <engineering@chrisdare.me>"]
 python = "^3.8"
 streamlit = "^1.8.1"
 requests = "^2.27.1"
+websockets = "^10.3"
 
 [tool.poetry.dev-dependencies]
 

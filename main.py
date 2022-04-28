@@ -3,35 +3,53 @@ This runs on sreamlit
 """
 # Author: Christopher Dare
 import json
+import websockets
 
 import pandas as pd
 import requests
 import streamlit as st
 
 base_url = "https://jamzee-cotp-api.herokuapp.com/api"
+ws_base_url = "ws://jamzee-cotp-api.herokuapp.com"
 
-st.title("Jamzee's Adventure")
-st.write(
-    """Earn money whilst you sleep with our COTPs bot"""
-)  # description
+st.image('./logo.png')
+st.title("Earn money whilst you sleep with our COTPs bot")
+
 
 burn_area = ""
-st.title("Jamzee's COTPS automation")
 
-username = st.text_input("username")
-password = st.text_input("password")
+username = st.text_input("username").strip()
+password = st.text_input("password").strip()
+
+
+async def process_automation(username: str, password: str):
+    websocket = websockets.connect(uri=f"{base_url}/ws/automations/actions")
+    event = {
+        "username": username,
+        "password": password
+    }
+    st.write(f"Commencing automation for {username}")
+    st.write(f"Establishing connection....")
+    event["type"] = "websocket.send"
+    websocket.send(json.dumps(event))
+
+    st.write(f"Receiving messages connection....")
+    while True:
+        message = await websocket.recv()
+        st.write(message)
+
 
 if st.button("Start automation"):
     login_data = dict()
-    login_data["username"] = str(username)
-    login_data["password"] = str(password)
+    # login_data["username"] = str(username).strip()
+    # login_data["password"] = str(password).strip()
+    # payload = json.dumps(login_data)
+    process_automation(username=username, password=password)
 
-    payload = json.dumps(login_data)
-    st.write(f"Attempting login... for f{username}")
-    response = requests.post(f"{base_url}/v1/login/cotps-user", data=payload)
-    print(response)
-    print(response.status_code)
-    data = response.json()
+    # response = requests.post(f"{base_url}/v1/login/cotps-user", data=payload)
+    # st.write(response.status_code)
+    # data = response.json()
+    # st.write(data)
     output = "Done"
     # if data["success"]:
     #     burn_area = data["payload"]
