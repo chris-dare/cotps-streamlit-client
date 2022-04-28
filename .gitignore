@@ -1,0 +1,19 @@
+__pycache__
+app.egg-info
+.mypy_cache
+.coverage
+htmlcov
+.vscode
+.mypy_cache
+docker-stack.yml
+legacy_cotps_app
+.env
+.idea
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Jupyter Notebook Files
+lab

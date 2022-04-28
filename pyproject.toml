@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "cotps-streamlit-client"
+version = "0.1.0"
+description = "Streamlit client for my custom COTPS client"
+authors = ["Chris Dare <engineering@chrisdare.me>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+streamlit = "^1.8.1"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
